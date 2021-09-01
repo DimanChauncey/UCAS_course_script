@@ -43,7 +43,7 @@ def login_jwxt(ava, add_id_to_name = 0):
         list_id = re.findall(pattern_student_id, page_jwxt.text)
         # student_id_bach = list_id[0]
         # student_id_grad = list_id[1]
-        student_id_grad='202128013229046'
+        student_id_grad='20212xxxxxxx'
         pattern_K = re.compile('K')
         # if re.search(pattern_K, student_id_grad) != None:
         #     print("Ah, student id unsual order.")
