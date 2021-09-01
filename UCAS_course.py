@@ -18,7 +18,7 @@ def post_data(url, data = None, time_out = 3, retry = 5):
     return None
 
 def login_jwxt(ava, add_id_to_name = 0):
-    page_jump = post_data('http://sep.ucas.ac.cn/portal/site/226/821')
+    page_jump = post_data('http://sep.ucas.ac.cn/portal/site/226/821')#登录
     if page_jump is None:
         tkinter.messagebox.showerror(title = '网页超时', message = '请检查是否断网或者延迟过高')
         return "high delay"
@@ -41,30 +41,30 @@ def login_jwxt(ava, add_id_to_name = 0):
     pattern_student_id = re.compile('doSelectNo\?num=([\w]*)')
     try:
         list_id = re.findall(pattern_student_id, page_jwxt.text)
-        student_id_bach = list_id[0]
-        student_id_grad = list_id[1]
-
+        # student_id_bach = list_id[0]
+        # student_id_grad = list_id[1]
+        student_id_grad='202128013229046'
         pattern_K = re.compile('K')
-        if re.search(pattern_K, student_id_grad) != None:
-            print("Ah, student id unsual order.")
-            student_id_bach, student_id_grad = student_id_grad, student_id_bach
+        # if re.search(pattern_K, student_id_grad) != None:
+        #     print("Ah, student id unsual order.")
+        #     student_id_bach, student_id_grad = student_id_grad, student_id_bach
 
         student_id = student_id_bach if ava == '本科生' else student_id_grad
-
-        student_number_payload = {'num': student_id}
-        page_check = post_data('http://jwxk.ucas.ac.cn/doSelectNo', data=student_number_payload)
-        if page_check is None:
-            tkinter.messagebox.showerror(title = '网页超时', message = '请检查是否断网或者延迟过高')
-            return "high delay"
-
-        pattern_check = re.compile('</i> (.+?)&nbsp;\s*\(当前\)')
-        id_check = re.search(pattern_check, page_check.text).group(1)
-        if id_check != student_id:
-            tkinter.messagebox.showerror(title = '内部错误', message = '选择学号失败，请及时联系维护人员')
-            return "select student id fail"
-        if add_id_to_name == 1:
-            global name_student
-            name_student = name_student + ' ' + student_id
+        #
+        # student_number_payload = {'num': student_id}
+        # page_check = post_data('http://jwxk.ucas.ac.cn/doSelectNo', data=student_number_payload)
+        # if page_check is None:
+        #     tkinter.messagebox.showerror(title = '网页超时', message = '请检查是否断网或者延迟过高')
+        #     return "high delay"
+        #
+        # pattern_check = re.compile('</i> (.+?)&nbsp;\s*\(当前\)')
+        # id_check = re.search(pattern_check, page_check.text).group(1)
+        # if id_check != student_id:
+        #     tkinter.messagebox.showerror(title = '内部错误', message = '选择学号失败，请及时联系维护人员')
+        #     return "select student id fail"
+        # if add_id_to_name == 1:
+        #     global name_student
+        #     name_student = name_student + ' ' + student_id
 
     except:
         # print(page_jwxt.text)
